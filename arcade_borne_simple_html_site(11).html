@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Borne</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: white;
+    }
+
+    header {
+      padding: 20px;
+      border-bottom: 1px solid #7c3aed;
+      text-align: center;
+    }
+
+    header h1 {
+      color: #a855f7;
+      font-size: 40px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero h2 {
+      color: #a855f7;
+      font-size: 50px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .image img {
+      width: 100%;
+      border-radius: 20px;
+      border: 2px solid #7c3aed;
+    }
+
+    .card {
+      background: #111;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid #7c3aed;
+    }
+
+    .card h3 {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      color: #a855f7;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      background: rgba(168,85,247,0.2);
+      border: 1px solid #a855f7;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px;
+      background: black;
+      color: white;
+      border: 1px solid #7c3aed;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #a855f7;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #7c3aed;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ARCADE BORNE</h1>
+  </header>
+
+  <section class="hero">
+    <h2>Bornes Arcade</h2>
+  </section>
+
+  <section class="container">
+
+    <div class="image" style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;">
+      <img src="goldorak.jpg" alt="Borne Arcade Goldorak">
+      <img src="mario.jpg" alt="Borne Arcade Mario">
+    </div>
+
+    <div class="card">
+      <h3>Arcade Borne Ultimate</h3>
+
+      <div class="price">750 euros</div>
+
+      <div class="options">
+        <div class="option">Écran 24 pouces</div>
+        <div class="option">10000 jeux rétro</div>
+        <div class="option">Joystick éclairé</div>
+        <div class="option">Marquee éclairée</div>
+        <div class="option">Pin de 18 mm</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:block; margin-bottom:10px;">
+          <input type="checkbox" id="rouletteOption" onchange="mettreAJourPrix()">
+          Roulettes (+30 euros)
+        </label>
+
+        <label style="display:block; margin-bottom:10px;">
+          <input type="checkbox" id="ampliOption" onchange="mettreAJourPrix()">
+          Ampli son (+50 euros)
+        </label>
+
+        <label style="display:block; margin-bottom:10px;">
+          <input type="checkbox" id="decoOption" onchange="mettreAJourPrix()">
+          Déco personnalisée (+30 euros)
+        </label>
+      </div>
+
+      <div id="prixTotal" style="margin-bottom:20px; font-size:22px; color:#a855f7;">
+        Total : 750 euros
+      </div>
+
+      <button onclick="ouvrirCommande()">Acheter</button>
+    </div>
+
+  </section>
+
+  <section id="commande" style="display:none; max-width:700px; margin:40px auto; padding:40px; background:#111; border:1px solid #7c3aed; border-radius:20px;">
+    <h2 style="color:#a855f7; margin-bottom:20px; text-align:center; font-size:40px;">
+      Commande
+    </h2>
+
+    <form onsubmit="envoyerCommande(event)">
+      <input type="hidden" id="montantCommande" value="750 euros">
+      <input type="text" id="nom" name="nom" placeholder="Votre nom" style="width:100%; padding:15px; margin-bottom:15px; border-radius:10px; border:none;">
+
+      <input type="email" id="email" name="email" placeholder="Votre email" style="width:100%; padding:15px; margin-bottom:15px; border-radius:10px; border:none;">
+
+      <input type="text" id="adresse" name="adresse" placeholder="Votre adresse" style="width:100%; padding:15px; margin-bottom:15px; border-radius:10px; border:none;">
+
+      <button type="submit">Valider la commande</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>Contact : homjl25@gmail.com</p>
+    <br>
+    <p>© 2026 Arcade Borne</p>
+  </footer>
+
+<script>
+  function mettreAJourPrix() {
+    const roulette = document.getElementById('rouletteOption').checked ? 30 : 0;
+    const ampli = document.getElementById('ampliOption').checked ? 50 : 0;
+
+    const deco = document.getElementById('decoOption').checked ? 30 : 0;
+
+    const total = 750 + roulette + ampli + deco;
+
+    document.getElementById('prixTotal').innerText = 'Total : ' + total + ' euros';
+    document.getElementById('montantCommande').value = total + ' euros';
+  }
+
+  function envoyerCommande(event) {
+    event.preventDefault();
+
+    const nom = document.getElementById('nom').value;
+    const email = document.getElementById('email').value;
+    const adresse = document.getElementById('adresse').value;
+    const montant = document.getElementById('montantCommande').value;
+
+    const sujet = encodeURIComponent('Commande Arcade Borne');
+
+    const message = encodeURIComponent(
+      'Nom : ' + nom + '\n' +
+      'Email : ' + email + '\n' +
+      'Adresse : ' + adresse + '\n' +
+      'Montant : ' + montant
+    );
+
+    window.location.href = 'mailto:homjl25@gmail.com?subject=' + sujet + '&body=' + message;
+  }
+
+  function ouvrirCommande() {
+    document.getElementById('commande').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('commande').offsetTop, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
